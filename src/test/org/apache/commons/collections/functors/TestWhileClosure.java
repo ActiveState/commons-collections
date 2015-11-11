@@ -17,32 +17,29 @@
 package org.apache.commons.collections.functors;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-/**
- * Entry point for all Functor tests.
- */
-public class TestAll extends TestCase {
-    
-    public TestAll(String testName) {
+public class TestWhileClosure extends AbstractTestSerialization {
+
+    // conventional
+    // ------------------------------------------------------------------------
+
+    public TestWhileClosure(String testName) {
         super(testName);
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTest(TestCloneTransformer.suite());
-        suite.addTest(TestForClosure.suite());
-        suite.addTest(TestInstantiateTransformer.suite());
-        suite.addTest(TestInstantiateFactory.suite());
-        suite.addTest(TestInvokerTransformer.suite());
-        suite.addTest(TestWhileClosure.suite());
-        return suite;
+        return new TestSuite(TestWhileClosure.class);
     }
-        
-    public static void main(String args[]) {
-        String[] testCaseName = { TestAll.class.getName() };
-        junit.textui.TestRunner.main(testCaseName);
+
+    // ------------------------------------------------------------------------
+
+    public Object makeObject() {
+        return new WhileClosure(FalsePredicate.INSTANCE, NOPClosure.INSTANCE, true);
     }
-    
+
+    public Class getTestClass() {
+        return WhileClosure.class;
+    }
+
 }
