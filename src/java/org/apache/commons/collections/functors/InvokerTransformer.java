@@ -1,9 +1,10 @@
 /*
- *  Copyright 2001-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -15,6 +16,9 @@
  */
 package org.apache.commons.collections.functors;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,6 +28,16 @@ import org.apache.commons.collections.Transformer;
 
 /**
  * Transformer implementation that creates a new object instance by reflection.
+ * <p>
+ * <b>WARNING:</b> from v3.2.2 onwards this class will throw an
+ * {@link UnsupportedOperationException} when trying to serialize or
+ * de-serialize an instance to prevent potential remote code execution exploits.
+ * <p>
+ * In order to re-enable serialization support for {@code InvokerTransformer}
+ * the following system property can be used (via -Dproperty=true):
+ * <pre>
+ * org.apache.commons.collections.enableUnsafeSerialization
+ * </pre>
  * 
  * @since Commons Collections 3.0
  * @version $Revision$ $Date$
@@ -34,7 +48,7 @@ public class InvokerTransformer implements Transformer, Serializable {
 
     /** The serial version */
     private static final long serialVersionUID = -8653385846894047688L;
-    
+
     /** The method name to call */
     private final String iMethodName;
     /** The array of reflection parameter types */
@@ -133,4 +147,21 @@ public class InvokerTransformer implements Transformer, Serializable {
         }
     }
 
+    /**
+     * Overrides the default writeObject implementation to prevent
+     * serialization (see COLLECTIONS-580).
+     */
+    private void writeObject(ObjectOutputStream os) throws IOException {
+        FunctorUtils.checkUnsafeSerialization(InvokerTransformer.class);
+        os.defaultWriteObject();
+    }
+
+    /**
+     * Overrides the default readObject implementation to prevent
+     * de-serialization (see COLLECTIONS-580).
+     */
+    private void readObject(ObjectInputStream is) throws ClassNotFoundException, IOException {
+        FunctorUtils.checkUnsafeSerialization(InvokerTransformer.class);
+        is.defaultReadObject();
+    }
 }

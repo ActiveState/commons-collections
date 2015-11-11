@@ -191,12 +191,12 @@ public class MultiKeyMap
 
     /**
      * Removes the specified multi-key from this map.
-     * 
-     * @param key1  the first key
-     * @param key2  the second key
+     *
+     * @param key1 the first key
+     * @param key2 the second key
      * @return the value mapped to the removed key, null if key not in map
      */
-    public Object remove(Object key1, Object key2) {
+    public boolean remove(Object key1, Object key2) {
         int hashCode = hash(key1, key2);
         int index = map.hashIndex(hashCode, map.data.length);
         AbstractHashedMap.HashEntry entry = map.data[index];
@@ -205,12 +205,12 @@ public class MultiKeyMap
             if (entry.hashCode == hashCode && isEqualKey(entry, key1, key2)) {
                 Object oldValue = entry.getValue();
                 map.removeMapping(entry, index, previous);
-                return oldValue;
+                return (boolean) oldValue;
             }
             previous = entry;
             entry = entry.next;
         }
-        return null;
+        return false;
     }
 
     /**

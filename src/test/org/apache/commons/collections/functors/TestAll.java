@@ -36,7 +36,6 @@ public class TestAll extends TestCase {
         suite.addTest(TestInstantiateTransformer.suite());
         suite.addTest(TestInstantiateFactory.suite());
         suite.addTest(TestInvokerTransformer.suite());
-        suite.addTest(TestPrototypeFactory.suite());
         suite.addTest(TestWhileClosure.suite());
         return suite;
     }
