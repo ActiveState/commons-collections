@@ -84,17 +84,18 @@ public class CloneTransformer implements Transformer, Serializable {
      * Overrides the default writeObject implementation to prevent
      * serialization (see COLLECTIONS-580).
      */
-    private void writeObject(ObjectOutputStream os) throws IOException {
+    private void writeObject(ObjectOutputStream out) throws IOException {
         FunctorUtils.checkUnsafeSerialization(CloneTransformer.class);
-        os.defaultWriteObject();
+        out.defaultWriteObject();
     }
 
     /**
      * Overrides the default readObject implementation to prevent
      * de-serialization (see COLLECTIONS-580).
      */
-    private void readObject(ObjectInputStream is) throws ClassNotFoundException, IOException {
+    private void readObject(ObjectInputStream in)
+            throws IOException, ClassNotFoundException {
         FunctorUtils.checkUnsafeSerialization(CloneTransformer.class);
-        is.defaultReadObject();
+        in.defaultReadObject();
     }
 }

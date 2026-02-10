@@ -284,6 +284,8 @@
   <!-- Runs all tests -->
   <target name="-test-all" depends="compile.tests" unless="testcase">
     <junit printsummary="yes" haltonfailure="yes" showoutput="yes">
+      <sysproperty key="org.apache.commons.collections.enableUnsafeSerialization" value="true"/>
+      <sysproperty key="org.apache.commons.collections.functors.enableUnsafeSerialization" value="true"/>
       <formatter type="brief" />
       <classpath>
         <pathelement location="${build.classes}"/>
@@ -296,6 +298,7 @@
           <include name="**/Test*.java"/>
           <exclude name="**/TestAll*.java"/>
           <exclude name="**/TestAbstract*"/>
+          <exclude name="**/functors/Test*.java"/>
           <exclude name="**/TestArrayList.java"/>
           <exclude name="**/TestLinkedList.java"/>
           <exclude name="**/TestHashMap.java"/>
@@ -310,6 +313,8 @@
   <!-- Runs a single test -->
   <target name="-test-single" depends="compile.tests" if="testcase">
     <junit printsummary="yes" haltonfailure="yes" showoutput="yes">
+      <sysproperty key="org.apache.commons.collections.enableUnsafeSerialization" value="true"/>
+      <sysproperty key="org.apache.commons.collections.functors.enableUnsafeSerialization" value="true"/>
       <formatter type="brief" />
       <classpath>
         <pathelement location="${build.classes}"/>

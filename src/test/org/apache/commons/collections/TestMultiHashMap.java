@@ -463,11 +463,11 @@ public class TestMultiHashMap extends AbstractTestMap {
         map.put("A", "AA");
         map.put("A", "AB");
         map.put("A", "AC");
-        assertEquals(null, map.remove("C", "CA"));
-        assertEquals(null, map.remove("A", "AD"));
-        assertEquals("AC", map.remove("A", "AC"));
-        assertEquals("AB", map.remove("A", "AB"));
-        assertEquals("AA", map.remove("A", "AA"));
+        assertFalse(map.remove("C", "CA"));
+        assertFalse(map.remove("A", "AD"));
+        assertTrue(map.remove("A", "AC"));
+        assertTrue(map.remove("A", "AB"));
+        assertTrue(map.remove("A", "AA"));
         assertEquals(new MultiHashMap(), map);
     }
 

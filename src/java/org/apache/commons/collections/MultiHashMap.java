@@ -335,17 +335,20 @@ public class MultiHashMap extends HashMap implements MultiMap {
         if (valuesForKey == null) {
             return false;
         }
+
         boolean removed = valuesForKey.remove(item);
-        if (removed == false) {
+        if (!removed) {
             return false;
         }
-        // remove the list if it is now empty
-        // (saves space, and allows equals to work)
-        if (valuesForKey.isEmpty()){
+
+        // remove the key if no values left
+        if (valuesForKey.isEmpty()) {
             remove(key);
         }
-        return (boolean) item;
+
+        return true;
     }
+
 
     /**
      * Clear the map.

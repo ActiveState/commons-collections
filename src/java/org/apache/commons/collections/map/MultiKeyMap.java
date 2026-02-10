@@ -203,9 +203,8 @@ public class MultiKeyMap
         AbstractHashedMap.HashEntry previous = null;
         while (entry != null) {
             if (entry.hashCode == hashCode && isEqualKey(entry, key1, key2)) {
-                Object oldValue = entry.getValue();
                 map.removeMapping(entry, index, previous);
-                return (boolean) oldValue;
+                return true;
             }
             previous = entry;
             entry = entry.next;
