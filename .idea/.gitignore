@@ -1,3 +1,7 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+/aws.xml
+/copilot.data.migration.agent.xml
+/copilot.data.migration.ask2agent.xml
+/copilot.data.migration.edit.xml

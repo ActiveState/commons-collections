@@ -120,12 +120,18 @@
   <target name="compile" depends="prepare"
           description="Compile main code">
     <mkdir dir="${build.classes}"/>
-    <javac  srcdir="${source.java}"
+    <javac srcdir="${source.java}"
            destdir="${build.classes}"
-             debug="${compile.debug}"
-       deprecation="${compile.deprecation}"
-          optimize="${compile.optimize}">
+           debug="${compile.debug}"
+           deprecation="${compile.deprecation}"
+           optimize="${compile.optimize}"
+           includeantruntime="false"
+           fork="yes"
+           executable="C:/Program Files/Java/jdk1.5.0_22/bin/javac.exe"
+           source="1.5"
+           target="1.5">
     </javac>
+
   </target>
 
 <!-- ====================================================================== -->
@@ -263,11 +269,14 @@
   <target name="compile.tests" depends="compile"
           description="Compile unit test cases">
     <mkdir dir="${build.tests}"/>
-    <javac  srcdir="${source.test}"
+    <javac srcdir="${source.test}"
            destdir="${build.tests}"
-             debug="true"
-       deprecation="false"
-          optimize="false">
+           debug="true"
+           deprecation="false"
+           optimize="false"
+           executable="C:/Program Files/Java/jdk1.5.0_22/bin/javac.exe"
+           source="1.5"
+           target="1.5">
       <classpath>
         <pathelement location="${build.classes}"/>
         <pathelement location="${junit.jar}"/>

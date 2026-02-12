@@ -164,7 +164,7 @@ public class MultiValueMap extends AbstractMapDecorator implements MultiMap {
         if (valuesForKey.isEmpty()) {
             remove(key);
         }
-        return (boolean) value;
+        return true;
     }
 
     /**
