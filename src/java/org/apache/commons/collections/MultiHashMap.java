@@ -309,19 +309,23 @@ public class MultiHashMap extends HashMap implements MultiMap {
      * @param item  the value to remove
      * @return the value removed (which was passed in), null if nothing removed
      */
-    public Object remove(Object key, Object item) {
+    public boolean remove(Object key, Object item) {
         Collection valuesForKey = getCollection(key);
         if (valuesForKey == null) {
-            return null;
+            return false;
         }
-        valuesForKey.remove(item);
 
-        // remove the list if it is now empty
-        // (saves space, and allows equals to work)
-        if (valuesForKey.isEmpty()){
+        boolean removed = valuesForKey.remove(item);
+        if (!removed) {
+            return false;
+        }
+
+        // remove the key if no values left
+        if (valuesForKey.isEmpty()) {
             remove(key);
         }
-        return item;
+
+        return true;
     }
 
     /**
