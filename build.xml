@@ -304,6 +304,8 @@
   <target name="test"  depends="compile.tests"
           description="Run all unit test cases">
     <junit printsummary="yes" haltonfailure="yes" showoutput="yes">
+      <sysproperty key="org.apache.commons.collections.enableUnsafeSerialization" value="true"/>
+      <sysproperty key="org.apache.commons.collections.functors.enableUnsafeSerialization" value="true"/>
       <formatter type="brief" />
       <classpath>
         <pathelement location="${build.classes}"/>
@@ -316,6 +318,7 @@
           <include name="**/Test*.java"/>
           <exclude name="**/TestAll*.java"/>
           <exclude name="**/TestAbstract*"/>
+          <exclude name="**/functors/Test*.java"/>
           <exclude name="**/TestArrayList.java"/>
           <exclude name="**/TestLinkedList.java"/>
           <exclude name="**/TestHashMap.java"/>
@@ -333,6 +336,8 @@
           description="Run all unit test cases">
     <echo message="Running collections tests against built jar ..."/>
     <junit printsummary="yes" haltonfailure="yes">
+      <sysproperty key="org.apache.commons.collections.enableUnsafeSerialization" value="true"/>
+      <sysproperty key="org.apache.commons.collections.functors.enableUnsafeSerialization" value="true"/>
       <classpath>
         <pathelement location="${build.jar.name}"/>
         <pathelement location="${build.tests}"/>
